@@ -22,16 +22,13 @@
             const page1 = pdf.addObject(new PDF_Page());
             const page1Content = pdf.addObject(new PDF_StreamObject(`
                 BT
-                    /F1 24 Tf
-                    1 0 0 1 260 600 Tm
-                    (Hello World) Tj
+                    /F$Helvetica 11 Tf
+                    1 0 0 1 72 720 Tm
+                    (Hello World. This is cool? Yappity yap yap yap yap!) Tj
                 ET
             `));
             page1.object.setContent(page1Content.getReference());
             pdf.pages.addPage(page1);
-            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
-            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
-            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
 
             const generated = document.body.innerText = pdf.generate();
 

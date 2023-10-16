@@ -1,14 +1,3 @@
-class PDF_BasicFontObject extends PDF_DictionaryObject {
-    constructor(name='') {
-        super(
-            ['Type', new PDF_NameObject('Font')],
-            ['SubType', new PDF_NameObject('Type1')],
-            ['Name', new PDF_NameObject('F1')],
-            ['BaseFont', name]
-        );
-    }
-}
-
 class PDF {
     /** @type {boolean} */
     static smallerOutput = false;
@@ -23,8 +12,8 @@ class PDF {
 
     constructor() {
         let resources = new BasicPDF_Page_Resources();
-        let basicFont = new PDF_BasicFontObject('Helvetica');
-        resources.addFont(this.addObject(basicFont).getReference());
+        resources.addFont(this.addObject(new PDF_BasicFontObject('F:Arial', 'Arial')));
+        resources.addFont(this.addObject(new PDF_BasicFontObject('F:Helvetica', 'Helvetica')));
 
         this.#pagesObject = this.addObject(new PDF_Pages(this.addObject(resources).getReference()));
         this.#rootObject = this.addObject(new PDF_Root(this.#pagesObject));

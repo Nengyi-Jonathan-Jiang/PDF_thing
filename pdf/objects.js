@@ -114,7 +114,7 @@ class PDF_DictionaryObject extends PDF_DirectObject {
     /** @param {[string, PDF_DirectObject][]} entries... */
     constructor(...entries) {
         super();
-        this.#entries = new Map(entries);
+        this.#entries = new Map(entries ?? []);
     }
 
 

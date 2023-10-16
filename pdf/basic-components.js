@@ -1,10 +1,7 @@
 class PDF_Root extends PDF_DictionaryObject {
     /** @param {PDF_IndirectObject<PDF_Pages>} pagesObject */
     constructor(pagesObject) {
-        super(
-            ['Type', new PDF_NameObject('Catalog')],
-            ['Pages', pagesObject.getReference()]
-        );
+        super(['Type', new PDF_NameObject('Catalog')], ['Pages', pagesObject.getReference()]);
     }
 }
 
@@ -18,14 +15,14 @@ class _PDF_Page_Node extends PDF_DictionaryObject {
     }
 
     /** @protected */
-    get children(){
+    get children() {
         return this.#children;
     }
 
     /**
      * @param {PDF_IndirectObject<PDF_Page>} page
      */
-    addChild(page){
+    addChild(page) {
         this.#children.push(page.getReference());
     }
 
@@ -37,24 +34,6 @@ class _PDF_Page_Node extends PDF_DictionaryObject {
     }
 }
 
-class FontResource extends PDF_RawObject {
-    constructor() {
-        super('<</F1 << /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Helvetica >> >>');
-    }
-}
-
-class BasicPDF_Page_Resources extends PDF_DictionaryObject {
-    constructor() {
-        super(
-            ['ProcSet', new PDF_RawObject('[ /PDF /Text ]')],
-            ['Font', new FontResource()]
-        );
-    }
-
-    addFont(reference) {
-
-    }
-}
 
 class PDF_Pages extends _PDF_Page_Node {
     /** @param {PDF_IndirectObjectReference<BasicPDF_Page_Resources>} resources */
@@ -67,7 +46,7 @@ class PDF_Pages extends _PDF_Page_Node {
     /**
      * @param {PDF_IndirectObject<PDF_Page>} page
      */
-    addPage(page){
+    addPage(page) {
         this.children.push(page.getReference());
     }
 
@@ -91,11 +70,38 @@ class PDF_Page extends PDF_DictionaryObject {
     }
 
     /** @param {PDF_DirectObject} obj */
-    setContent(obj){
-        this.setEntry('Content', obj);
+    setContent(obj) {
+        this.setEntry('Contents', obj);
     }
 
     generate() {
         return super.generate();
+    }
+}
+
+class BasicPDF_Page_Resources extends PDF_DictionaryObject {
+    /** @type {PDF_DictionaryObject} */
+    #fonts;
+
+    constructor() {
+        super(['ProcSet', new PDF_RawObject('[ /PDF /Text ]')], ['Font', new PDF_DictionaryObject()]);
+
+        // noinspection JSValidateTypes
+        this.#fonts = this.entries.get('Font');
+    }
+
+    /** @param {PDF_IndirectObject<PDF_BasicFontObject>} font */
+    addFont(font) {
+        this.#fonts.setEntry(font.object.id, font.getReference());
+    }
+}
+
+class PDF_BasicFontObject extends PDF_DictionaryObject {
+    /** @type {string} */
+    id;
+
+    constructor(id, name = 'Arial') {
+        super(['Type', new PDF_NameObject('Font')], ['SubType', new PDF_NameObject('Type1')], ['Name', new PDF_NameObject(id)], ['BaseFont', name]);
+        this.id = id;
     }
 }
