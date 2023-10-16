@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>PDF er</title>
+
+        <style>
+            body {
+                font-family: "JetBrains Mono", "Courier New", monospace;
+                font-size:   9pt;
+            }
+        </style>
+
+        <script src="pdf/util.js"></script>
+        <script src="pdf/objects.js"></script>
+        <script src="pdf/basic-components.js"></script>
+        <script src="pdf/pdf.js"></script>
+    </head>
+    <body>
+        <script>
+            const pdf = new PDF();
+            const page1 = pdf.addObject(new PDF_Page());
+            const page1Content = pdf.addObject(new PDF_StreamObject(`
+                BT
+                    /F1 24 Tf
+                    1 0 0 1 260 600 Tm
+                    (Hello World) Tj
+                ET
+            `));
+            page1.object.setContent(page1Content.getReference());
+            pdf.pages.addPage(page1);
+            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
+            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
+            pdf.pages.addPage(pdf.addObject(new PDF_Page()));
+
+            const generated = document.body.innerText = pdf.generate();
+
+            const blob = new Blob([new TextEncoder().encode(generated)], {
+                type: 'application/pdf'
+            });
+            const url = URL.createObjectURL(blob);
+
+            document.body.oncontextmenu = e => (e.preventDefault(), window.open(url, '_blank'));
+        </script>
+    </body>
+</html>
