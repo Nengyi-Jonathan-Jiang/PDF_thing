@@ -24,9 +24,27 @@
                 BT
                     /F$Helvetica 11 Tf
                     1 0 0 1 72 720 Tm
-                    (Hello World. This is cool? Yappity yap yap yap yap!) Tj
+                    (Hello World. Thisαβ is cool? Yappity yap yap yap yap!) Tj
                 ET
             `));
+            // αβγδεζηθικλμνξοπρςστυφχψωΓΔΘΛΞΠΣΦΨΩ
+            /*
+             * Base fonts:
+             * Times-Roman
+             * Times-Bold
+             * Times-Italic
+             * Times-BoldItalic
+             * Helvetica
+             * Helvetica-Bold
+             * Helvetica-Oblique
+             * Helvetica-BoldOblique
+             * Courier
+             * Courier-Bold
+             * Courier-Oblique
+             * Courier-BoldOblique
+             * Symbol
+             */
+
             page1.object.setContent(page1Content.getReference());
             pdf.pages.addPage(page1);
 

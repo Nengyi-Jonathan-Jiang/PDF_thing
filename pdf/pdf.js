@@ -49,7 +49,7 @@ class PDF {
         const xRefsMap = new Map;
         let maxIndex = 0;
 
-        const header = '%PDF-2.0\n';
+        const header = '%PDF-2.0\n%μμμμ';
         let currByteIndex = stringLengthInBytes(header);
 
         let body = '';

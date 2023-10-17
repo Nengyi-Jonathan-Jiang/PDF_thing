@@ -1,0 +1,12 @@
+.math .sqrt.prefix {
+    --p-height: 0;
+    height: var(--p-height);
+    width: 0.95em;
+    vertical-align: bottom;
+}
+
+.math .sqrt>.sqrt-content {
+    border-top: 1px solid black;
+    padding: 1px 1px 0 1px;
+    margin-left: -.06em;
+}

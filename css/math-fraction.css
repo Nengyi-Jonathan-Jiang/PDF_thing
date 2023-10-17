@@ -1,0 +1,19 @@
+.math span.fraction {
+    font-size: 90%;
+    text-align: center;
+    vertical-align: -0.55em;
+    padding: 0 0.2em;
+}
+
+.math span.fraction span.numerator {
+    padding: 0 .1em .1em .1em;
+    display: block;
+}
+
+.math span.fraction span.denominator {
+    border-top: 1px solid;
+    float: right;
+    width: 100%;
+    padding: 0.1em 0.1em 0 0.1em;
+    display: block;
+}

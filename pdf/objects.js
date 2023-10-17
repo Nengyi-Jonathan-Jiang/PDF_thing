@@ -222,9 +222,30 @@ class PDF_StringObject extends PDF_DirectObject {
     }
 
     generate() {
-        return `(${this.#value
+        return `(${PDF_StringObject.sanitize_octal(PDF_StringObject.sanitize_special(this.#value))})`;
+    }
+
+    /** @param {string} str */
+    static sanitize_special(str) {
+        str = str
             .replaceAll(/\n/g, '\\n')
-            .replaceAll(/[()\\]/g, '\\$&')})`;
+            .replaceAll(/[()\\]/g, '\\$&');
+        return str;
+    }
+
+    /** @param {string} str */
+    static sanitize_octal(str) {
+        // For characters outside ASCII encoding, use octal
+
+        str = [...str].map(/** @param {string} char */ char => {
+            if(char.charCodeAt(0) > 127) {
+                // return '\\' + char.charCodeAt(0).toString(8).padStart(3, '0');
+                return '\\340'
+            }
+            else return char;
+        }).join('');
+
+        return str;
     }
 }
 
@@ -271,7 +292,7 @@ class PDF_StreamObject extends PDF_DirectObject {
             /Length ${this.#length}
         >>
         stream
-        ${this.#data}
+        ${PDF_StringObject.sanitize_octal(this.#data)}
         endstream
         `;
     }

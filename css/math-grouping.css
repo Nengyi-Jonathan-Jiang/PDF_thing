@@ -1,0 +1,18 @@
+.math .grouping {
+    --prefix-width: .55;
+}
+
+.math .grouping > .group-symbol {
+    --p-height: 0;
+    height: var(--p-height);
+    width: calc(var(--prefix-width) * 1em);
+    vertical-align: bottom;
+}
+
+.math .group-symbol.prefix {
+    margin-right: -0.08em;
+}
+
+.math .group-symbol.suffix {
+    transform: scaleX(-1);
+}

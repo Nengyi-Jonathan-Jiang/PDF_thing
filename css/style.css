@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+}
+
+#math-output {
+    border: 1px solid black;
+    margin: 5px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    height: 10em;
+    resize: vertical;
+    outline: none;
+    border: none;
+    font-family: Nunito, Roboto, arial, sans serif;
+    font-size: large;
+}
+
+.math sup, .math sub {
+    font-size: 80%;
+    margin-left: .1em;
+}
+.math sup {
+    vertical-align: text-bottom;
+}
+
+.math span.sup{
+    vertical-align: .3em;
+}
+
+.math span.text {
+    font-family: 'Times New Roman', serif;
+    white-space: pre;
+}
+
+.math span.number {}
+
+.math .expr:empty::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: .1em;
+    width: calc(100% - .2em);
+    height: calc(100% - .3em);
+    background: #ddd;
+}
+
+.math .expr:empty::after {
+    content: ' ';
+    display: inline-block;
+    width: .6em;
+}
+
+.math .group-content:empty::after {
+    content: ' ';
+    display: inline-block;
+    width: .1em;
+}
+
+.math big {
+    font-size: 150%;
+}
